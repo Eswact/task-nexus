@@ -1,0 +1,63 @@
+/* general */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #F5F5F5;
+}
+#root {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* dark mode */
+body.dark {
+    background-color: #092635;
+}
+.theme-controller {
+    display: none;
+}
+.swap-off {
+    display: block;
+}
+.swap-on {
+    display: none;
+}
+.theme-controller:checked ~ .swap-on {
+    display: block;
+}
+.theme-controller:checked ~ .swap-off {
+    display: none;
+}
+
+/* long text */
+.threeDots {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  overflow-wrap: break-word;
+}
+.truncatedText2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+/* mobile aside bar */
+@media screen and (max-width: 850px) {
+    #asideBar.show {
+        width: 100%;
+    }
+}
