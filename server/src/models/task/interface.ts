@@ -1,4 +1,3 @@
-import { Document, Types } from "mongoose";
 import { TaskPriority } from "../../enums/task-priority";
 import { TaskStatus } from "../../enums/task-status";
 
@@ -12,7 +11,7 @@ interface INote {
   createdAt: Date;
 }
 
-export default interface ITask extends Document {
+export default interface ITask {
   createrId: string;
   assignedId: string;
 
@@ -28,7 +27,4 @@ export default interface ITask extends Document {
   checklist: IChecklistItem[];
 
   priority: TaskPriority;
-
-  createdAt: Date;
-  updatedAt: Date;
 }

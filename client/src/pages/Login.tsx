@@ -65,15 +65,15 @@ const Login: React.FC = () => {
             const username = (document.getElementById("usernameR") as HTMLInputElement).value;
             const password = (document.getElementById("passwordR") as HTMLInputElement).value;
             const password2 = (document.getElementById("passwordR2") as HTMLInputElement).value;
-            const role = 0;
+            // const role = 1;
             if (password !== password2) {
                 ShowError('Passwords do not match');
                 document.querySelectorAll('input[type="password"]').forEach((input) => { (input as HTMLInputElement).value = ''; });
                 return;
             }
             AjaxScripts.Register({ 
-                data: { username, password, role, mail }, 
-                onSuccess: (res: any) => {
+                data: { username, password, mail }, 
+                onSuccess: (res: any) => {  
                     ShowSuccess('You can log in using the confirmation email sent to your email.');
                     document.querySelectorAll('input').forEach((input) => { (input as HTMLInputElement).value = ''; });
                     switchTab();
@@ -156,9 +156,9 @@ const Login: React.FC = () => {
                                         </label>
                                     </div>
                                     <div className="text-sm leading-5">
-                                        <a href="#" className="font-medium text-main hover:text-third focus:outline-none focus:underline transition ease-in-out duration-150">
-                                        Forgot your password?
-                                        </a>
+                                        <span className="font-medium text-main hover:text-third focus:outline-none focus:underline transition ease-in-out duration-150">
+                                            Forgot your password?
+                                        </span>
                                     </div>
                                 </div>
                                 <div className="mt-6">

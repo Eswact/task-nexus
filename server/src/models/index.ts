@@ -1,17 +1,14 @@
 import mongoose from "mongoose";
 import dbConfig from "../config/db-config";
 
-import IUser from "./user/interface";
-import ITask from "./task/interface";
-
-import User from "./user/model";
-import Task from "./task/model";
+import User, { UserDocument } from "./user/model";
+import Task, { TaskDocument } from "./task/model";
 
 interface IDb {
   mongoose: typeof mongoose;
   url: string;
-  users: mongoose.Model<IUser>;
-  tasks: mongoose.Model<ITask>;
+  users: mongoose.Model<UserDocument>;
+  tasks: mongoose.Model<TaskDocument>;
 }
 
 const db: IDb = {

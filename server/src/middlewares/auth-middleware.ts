@@ -4,11 +4,7 @@ import jwt from 'jsonwebtoken';
 import db from '../models';
 const User = db.users;
 
-interface CustomRequest extends Request {
-  user?: typeof User;
-}
-
-const authMiddleware = async (req: CustomRequest, res: Response, next: NextFunction) => {
+const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
   let token: string | undefined;
 
   if (req.session && req.session.user) {
@@ -33,8 +29,8 @@ const authMiddleware = async (req: CustomRequest, res: Response, next: NextFunct
       return res.status(401).json({ message: 'Unauthorized' });
     }
 
-    // add user to request
-    (req as any).user = user;
+    // add userId to request
+    req.user = userId.toString();
     next();
   } catch (error) {
     console.error('Error verifying token:', error);

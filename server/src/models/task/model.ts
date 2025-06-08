@@ -1,15 +1,16 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, Document } from "mongoose";
 import ITask from "./interface";
 import { TaskPriority } from "../../enums/task-priority";
 import { TaskStatus } from "../../enums/task-status";
 
-const TaskSchema = new Schema<ITask>({
+type TaskDocument = ITask & Document;
+const TaskSchema = new Schema<TaskDocument>({
   createrId: { type: String, required: true },
   assignedId: { type: String, required: true },
 
   title: { type: String, required: true },
   description: { type: String },
-  status: { type: Number, enum: Object.values(TaskStatus), default: 0 },
+  status: { type: Number, enum: Object.values(TaskStatus).filter(v => typeof v === 'number'), default: 1 },
   startDate: { type: Date },
   endDate: { type: Date },
   notes: [
@@ -24,15 +25,8 @@ const TaskSchema = new Schema<ITask>({
       checked: { type: Boolean, default: false },
     },
   ],
-  priority: { type: Number, enum: Object.values(TaskPriority), default: 0 },
+  priority: { type: Number, enum: Object.values(TaskPriority).filter(v => typeof v === 'number'), default: 1 },
+}, { timestamps: true });
 
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now },
-});
-
-TaskSchema.pre<ITask>("save", function (next) {
-  this.updatedAt = new Date();
-  next();
-});
-
-export default model<ITask>("Task", TaskSchema);
+export type { TaskDocument };
+export default model<TaskDocument>("Task", TaskSchema);

@@ -1,7 +1,6 @@
-import { Document } from "mongoose";
 import { UserRole } from "../../enums/user-role";
 
-export default interface IUser extends Document {
+export default interface IUser {
   username: string;
   password: string;
   role: UserRole;

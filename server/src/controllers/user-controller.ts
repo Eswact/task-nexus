@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import db from "../models";
 import IUser from "../models/user/interface";
+import { UserRole } from "../enums/user-role";
 import { sendVerificationMail } from "../services/mail-service";
 
 const User = db.users;
@@ -58,7 +59,7 @@ const logout = async (req: Request, res: Response): Promise<void> => {
 }
 
 const register = async (req: Request, res: Response): Promise<void> => {
-  const { username, password, role, mail } = req.body;
+  let { username, password, role, mail } = req.body;
   const usersData: IUser[] = await User.find();
   const mailOrUsernameExists = usersData.find(x => x.mail === mail || x.username === username);
   if (mailOrUsernameExists) {
@@ -67,7 +68,8 @@ const register = async (req: Request, res: Response): Promise<void> => {
   }
   try {
     const mailConfirmed: boolean = false;
-    const newUser = new User({ username, password, role, mail, mailConfirmed });
+    const userRole = Number(role) as UserRole || UserRole.BasicUser;
+    const newUser = new User({ username, password, role: userRole, mail, mailConfirmed });
     await newUser.save();
 
     const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET_KEY!);
@@ -76,6 +78,7 @@ const register = async (req: Request, res: Response): Promise<void> => {
 
     res.status(201).json({ message: "User created successfully" });
   } catch (err: any) {
+    console.error(err);
     res.status(500).json({ message: err.message || "Something went wrong" });
   }
 };
