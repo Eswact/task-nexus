@@ -1,12 +1,16 @@
 import express, { Router, RequestHandler } from "express";
 import userRoutes from "./handlers/user-route";
 import taskRoutes from './handlers/task-route';
+import statusRoutes from './handlers/status-route';
+import priorityRoutes from './handlers/priority-route';
 
 const router: Router = express.Router();
 
 const allRoutes = [
   { prefix: "/user", routes: userRoutes },
   { prefix: "/task", routes: taskRoutes },
+  { prefix: "/status", routes: statusRoutes },
+  { prefix: "/priority", routes: priorityRoutes },
 ];
 
 const chooseMethod = (router: Router, method: string, path: string, func: RequestHandler, middleware?: RequestHandler): void => {

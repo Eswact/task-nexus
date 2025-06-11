@@ -30,4 +30,4 @@ UserSchema.pre<UserDocument>("save", async function(next: Function) {
 });
 
 export type { UserDocument };
-export default model<UserDocument>("User", UserSchema);
+export default model<UserDocument>("users", UserSchema);

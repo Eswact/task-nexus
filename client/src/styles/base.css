@@ -9,7 +9,6 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #F5F5F5;
 }
 #root {
     width: 100%;
@@ -20,9 +19,6 @@ body {
 }
 
 /* dark mode */
-body.dark {
-    background-color: #092635;
-}
 .theme-controller {
     display: none;
 }

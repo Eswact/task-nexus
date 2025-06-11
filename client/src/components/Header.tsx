@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../services/authService";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { showNavbar } from "../scripts/common";
+import { openNavbar } from "../scripts/common";
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
@@ -30,9 +30,10 @@ const Header: React.FC = () => {
     <header className="w-[calc(100%-80px)] md:w-full fixed top-0 left-[80px] md:left-0 h-[68px] bg-bg dark:bg-dark justify-center items-center px-[50px] pt-[10px] md:px-[16px]">
       <nav className="w-full h-full px-[40px] md:px-[20px] py-[4px] flex items-center justify-between border-[1px] border-main/20 bg-main/10 rounded-md dark:border-main/60 dark:bg-fourth/60">
         <div className="flex items-center">
-          <button onClick={showNavbar} className="hidden md:block text-main hover:text-second dark:text-white dark:hover:text-second text-xl px-[4px]"><FontAwesomeIcon icon={["fas", "bars"]}/></button>
+          <button onClick={openNavbar} className="hidden md:block text-main hover:text-second dark:text-white dark:hover:text-second text-xl px-[4px]"><FontAwesomeIcon icon={["fas", "bars"]}/></button>
         </div>
         <div className="flex gap-6 md:gap-[20px] items-center justify-end">
+          <button className="text-main hover:text-second dark:text-white dark:hover:text-second text-xl px-[4px]"><FontAwesomeIcon icon={["fas", "magnifying-glass"]}/></button>
           {/* darkmode toggle */}
           <label className="swap swap-rotate cursor-pointer px-[2px]">
             <input type="checkbox" onChange={handleDarkModeToggle} className="theme-controller" />

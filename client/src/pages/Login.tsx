@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import AjaxScripts from "../scripts/ajaxScript";
-import { ShowError, ShowSuccess } from "../scripts/common";
+import { showError, showSuccess, showSplash, hideSplash } from "../scripts/common";
 import '../styles/pages/login.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -17,14 +17,17 @@ const Login: React.FC = () => {
         const urlParams = new URLSearchParams(window.location.search);
         const token = urlParams.get('verify');
         if (token) {
+            showSplash();
             window.history.replaceState(null, '', window.location.pathname);
             AjaxScripts.VerifyEmail({ 
                 data: { token: token }, 
                 onSuccess: (res: any) => {
-                    ShowSuccess('Your e-mail has been confirmed successfully.');
+                    showSuccess('Your e-mail has been confirmed successfully.');
+                    hideSplash();
                 },
                 onError: (err: any) => {
-                    ShowError(err.response?.data.message || err.message);
+                    showError(err.response?.data.message || err.message);
+                    hideSplash();
                 }
             });
         }
@@ -33,6 +36,7 @@ const Login: React.FC = () => {
     const navigate = useNavigate();
     const login = async (event: React.FormEvent) => {
         event.preventDefault();
+        showSplash();
         try {
           const mail = (document.getElementById("email") as HTMLInputElement).value;
           const password = (document.getElementById("password") as HTMLInputElement).value;
@@ -47,15 +51,18 @@ const Login: React.FC = () => {
                     sessionStorage.setItem('token', token);
                 }
                 navigate('/');
-                ShowSuccess('Welcome back!');
+                hideSplash();
+                showSuccess('Welcome back!');
             },
             onError: (err: any) => {
-                ShowError(err.response?.data.message || err.message);
+                hideSplash();
+                showError(err.response?.data.message || err.message);
                 document.querySelectorAll('input').forEach((input) => { (input as HTMLInputElement).value = ''; });
             }
           });
         } catch (error: any) {
-            ShowError(error.message || null);
+            hideSplash();
+            showError(error.message || null);
         }
     };
     const register = async (event: React.FormEvent) => { 
@@ -67,23 +74,27 @@ const Login: React.FC = () => {
             const password2 = (document.getElementById("passwordR2") as HTMLInputElement).value;
             // const role = 1;
             if (password !== password2) {
-                ShowError('Passwords do not match');
+                showError('Passwords do not match');
                 document.querySelectorAll('input[type="password"]').forEach((input) => { (input as HTMLInputElement).value = ''; });
                 return;
             }
+            showSplash();
             AjaxScripts.Register({ 
                 data: { username, password, mail }, 
                 onSuccess: (res: any) => {  
-                    ShowSuccess('You can log in using the confirmation email sent to your email.');
+                    hideSplash();
+                    showSuccess('You can log in using the confirmation email sent to your email.');
                     document.querySelectorAll('input').forEach((input) => { (input as HTMLInputElement).value = ''; });
                     switchTab();
                 },
                 onError: (err: any) => {
-                    ShowError(err.response?.data.message || err.message);
+                    hideSplash();
+                    showError(err.response?.data.message || err.message);
                 }
             });
         } catch (error: any) {
-            ShowError(error.message || null);
+            hideSplash();
+            showError(error.message || null);
         }
     };
     const switchTab = () => {

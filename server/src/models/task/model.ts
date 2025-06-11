@@ -29,4 +29,4 @@ const TaskSchema = new Schema<TaskDocument>({
 }, { timestamps: true });
 
 export type { TaskDocument };
-export default model<TaskDocument>("Task", TaskSchema);
+export default model<TaskDocument>("tasks", TaskSchema);

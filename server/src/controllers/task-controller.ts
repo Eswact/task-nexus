@@ -4,7 +4,7 @@ import ITask from "../models/task/interface";
 
 const Tasks = db.tasks;
 
-const getMyTasks = async (req: Request, res: Response): Promise<void> => {
+const getUserTasks = async (req: Request, res: Response): Promise<void> => {
   try {
     const tasksData: ITask[] = await Tasks.find({ assignedId: req.user });
     res.json(tasksData);
@@ -71,7 +71,7 @@ const deleteTask = async (req: Request, res: Response): Promise<void> => {
 // };
 
 export = {
-  getMyTasks,
+  getUserTasks,
   createTask,
   deleteTask
 };

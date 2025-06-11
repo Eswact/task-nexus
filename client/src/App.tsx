@@ -3,6 +3,7 @@ import { BrowserRouter as Router, useRoutes, useLocation } from "react-router-do
 import routes, { validPaths } from "./router/Router";
 import Header from "./components/Header";
 import Navbar from "./components/Navbar";
+import Splash from "./components/Splash";
 
 const AppWrapper: React.FC = () => {
   return (
@@ -34,6 +35,7 @@ const App: React.FC = () => {
       <main className={`${!isLoginPage && !isNotFoundPage ? 'w-[calc(100%-80px)] py-[16px] px-[50px] mt-[80px] ml-[80px] md:w-full md:ml-0 md:px-[16px] md:py-[8px]' : ''}`}>
         {routing}
       </main>
+      <Splash />
     </div>
   );
 };

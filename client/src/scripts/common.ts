@@ -1,6 +1,6 @@
 import { toast, Bounce } from 'react-toastify';
 
-function ShowError(msg?: string) {
+function showError(msg?: string) :void {
     toast.error(msg || 'An error occurred', {
         position: "bottom-right",
         autoClose: 2000,
@@ -9,7 +9,7 @@ function ShowError(msg?: string) {
         transition: Bounce,
     });
 }
-function ShowSuccess(msg?: string) {
+function showSuccess(msg?: string) :void {
     toast.success(msg || 'Successful', {
         position: "bottom-right",
         autoClose: 2000,
@@ -19,11 +19,25 @@ function ShowSuccess(msg?: string) {
     });
 }
 
-const showNavbar = () => {
+const openNavbar = () :void => {
     document.getElementById('asideBar')?.classList.add('show');
 };
-const closeNavbar = () => { 
+const closeNavbar = () :void => { 
     document.getElementById('asideBar')?.classList.remove('show');
 };
 
-export {ShowError, ShowSuccess, showNavbar, closeNavbar};
+const showSplash = () :void => {
+    document.getElementById('splashScreen')?.classList.remove('hidden');
+    document.getElementById('splashScreen')?.classList.add('flex');
+};
+const hideSplash = () :void => { 
+    document.getElementById('splashScreen')?.classList.remove('flex');
+    document.getElementById('splashScreen')?.classList.add('hidden');
+};
+
+const formatDateOnly = (isoString: string) :string => {
+  return new Date(isoString).toISOString().split("T")[0];
+}
+
+
+export {showError, showSuccess, openNavbar, closeNavbar, showSplash, hideSplash, formatDateOnly};
